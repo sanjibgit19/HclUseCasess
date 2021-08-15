@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@PropertySource(value = "classpath:application-${spring.profiles.active}.properties")
+//@PropertySource(value = "classpath:application-${spring.profiles.active}.properties")
 public class LearnController {
 
 	// By using @value annotation
-	@Value("${learnapp.message}")
+	//@Value("${learnapp.message}")
 	private String envMessage;
 
 	// By Using Environment variable
