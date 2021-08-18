@@ -2,8 +2,12 @@ package com.sanjib.hcl.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sanjib.hcl.entity.EmployeeEntity;
+import com.sanjib.hcl.restexception.EmployeeNotFoundException;
 import com.sanjib.hcl.service.EmployeeService;
 
 import io.swagger.annotations.Api;
@@ -28,37 +33,54 @@ public class EmployeeController {
 	@Autowired
 	private EmployeeService empService;
 
-	@PostMapping(value = "/employee/add", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/employee") //consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperation(value = "RestApi", response = String.class)
-	public String addAllEmployee(@RequestBody List<EmployeeEntity> empList) {
-		String statusMsg = null;
+	//public String addAllEmployee(@Valid @RequestBody List<EmployeeEntity> empList) {
+	//public ResponseEntity<?> addAllEmployee(@Valid @RequestBody List<EmployeeEntity> empList) {
+	  //public ResponseEntity<?> addAllEmployee(@Valid @RequestBody EmployeeEntity empList) {
+		//public EmployeeEntity addAllEmployee(@Valid @RequestBody EmployeeEntity empList) {
+		public List<EmployeeEntity> addAllEmployee(@Valid @RequestBody List<EmployeeEntity> empList) {
+		//String statusMsg = null;
+		/*List<EmployeeEntity> employeeEntities=null;
 		try {
-			statusMsg = empService.addAllEmployee(empList);
+			employeeEntities = empService.addAllEmployee(empList);
 			log.debug("Controller api executed");
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error("Exception in Controller class");
 		}
-		return statusMsg;
+		//return  statusMsg;
+		*/
+		//return new ResponseEntity<>(employeeEntities,HttpStatus.OK);
+		//return new ResponseEntity<EmployeeEntity>(empService.addEmployee(empList), HttpStatus.OK);
+		//return empService.addEmployee(empList);
+		return empService.addAllEmployee(empList);
+		
 	}// addAllEmployee(-)
 
 	@GetMapping(value = "/getEmployeeById/{empId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperation(value = "RestApi" , response = EmployeeEntity.class)
-	public EmployeeEntity getEmployeeById(@PathVariable("empId") Long id) {
+	public EmployeeEntity getEmployeeById(@PathVariable("empId") Long id) throws Exception, EmployeeNotFoundException {
 		EmployeeEntity empEntity = null;
 
 		try {
 			empEntity = empService.getEmployeeById(id);
+			if (empEntity==null) {
+				log.debug("employee is not found in DB for empCode"+id);
+				throw new EmployeeNotFoundException("Emplyoee Is not found in DB", "Internal Server Error");
+			}
 			log.debug("Controller api executed");
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error("Exception in Controller class");
+			throw e;
+//			throw new EmployeeNotFoundException("Emplyoee Is not found in DB", "Internal Server Error");
 		}
 
 		return empEntity;
-	}//
+	}//getEmployeeById(-)
 	
 	@RequestMapping(value = "/getEmployeeByEmailId/{email}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
 	@ApiOperation(value = "RestApi", response = EmployeeEntity.class)

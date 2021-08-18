@@ -6,7 +6,11 @@ import com.sanjib.hcl.entity.EmployeeEntity;
 
 public interface EmployeeService {
 
-	public String addAllEmployee(List<EmployeeEntity> empList) throws Exception;
+	//public String addAllEmployee(List<EmployeeEntity> empList);
+	
+	public List<EmployeeEntity> addAllEmployee(List<EmployeeEntity> empList);
+	
+	//public EmployeeEntity addEmployee(EmployeeEntity empList);
 
 	public EmployeeEntity getEmployeeById(Long id) throws Exception;
 
