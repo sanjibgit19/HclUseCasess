@@ -30,10 +30,18 @@ public class AppGlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		
 		ErrorResponse error=new ErrorResponse(4000L, details);
 		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
-	}
+	}//handleMethodArgumentNotValid(---)
+	
+	@ExceptionHandler(Exception.class)
+	public final ResponseEntity<ApiError> handleAllException(Exception ex, WebRequest request){
+		String errorMessage=ex.getLocalizedMessage();
+		ApiError error=new ApiError(5000L, errorMessage,"Invalid Input" , new Date());
+		ResponseEntity<ApiError> responseEntity=new ResponseEntity<ApiError>(error,HttpStatus.BAD_REQUEST);
+		return responseEntity;
+	}//handleException()
 
 	@ExceptionHandler(EmployeeNotFoundException.class)
-	public ResponseEntity<ApiError> handleException(EmployeeNotFoundException ex) {
+	public ResponseEntity<ApiError> handleEmployeeNotFoundException(EmployeeNotFoundException ex, WebRequest request) {
 		// String details=ex.getLocalizedMessage();
 		String errorMessage = ex.getMessage();
 		String errorReason = ex.getErrorReason();
