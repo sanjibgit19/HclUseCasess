@@ -157,7 +157,7 @@ public class EmployeeController {
 	
 	
 	@RequestMapping(value = "/getEmployeeByLocationAndExp/{loc}/{exp}", produces = MediaType.ALL_VALUE, method = RequestMethod.GET)
-	@ApiOperation(value = "restapi", response = EmployeeEntity.class)
+	@ApiOperation(value = "Restapi", response = EmployeeEntity.class)
 	public List<EmployeeEntity> getEmployeeByLocationAndExp(@PathVariable("loc") String loc, @PathVariable("exp") String exp) {
 		List<EmployeeEntity> employeeEntities=null;
 

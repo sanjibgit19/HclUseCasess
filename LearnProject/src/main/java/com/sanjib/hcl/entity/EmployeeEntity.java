@@ -11,7 +11,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,7 +25,7 @@ import lombok.NoArgsConstructor;
 public class EmployeeEntity implements Serializable {
 	
 	@Id
-	@SequenceGenerator(name = "gen1",sequenceName = "emp_code_seq", initialValue = 1000, allocationSize =1 )
+	@SequenceGenerator(name = "gen1",sequenceName = "emp_code_seq", initialValue = 1000, allocationSize =1)
 	@GeneratedValue(generator = "gen1", strategy = GenerationType.IDENTITY)
 	@Column(length = 10)
 	private Long empId;

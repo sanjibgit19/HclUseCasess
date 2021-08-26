@@ -21,14 +21,14 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class AppGlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
-	//@Override
+	@Override
 	public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
 		System.out.println("Entering to handler method for validation");
 		List<String> details = new ArrayList<>();
 		details = ex.getFieldErrors().stream().map(e1->e1.getField()+" : "+e1.getDefaultMessage()).collect(Collectors.toList());
 		
-		ErrorResponse error=new ErrorResponse(4000L, details);
+		ValidationErrorResponse error=new ValidationErrorResponse(4000L, details);
 		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 	}//handleMethodArgumentNotValid(---)
 	

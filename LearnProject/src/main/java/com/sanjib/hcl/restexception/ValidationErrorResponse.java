@@ -11,7 +11,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class ErrorResponse {
+public class ValidationErrorResponse {
 	
 	private Long errorCode;
 	

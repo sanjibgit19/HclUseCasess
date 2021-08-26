@@ -29,11 +29,11 @@ public class SwaggerConfig {
 	
 	
 	public ApiInfo apiInfo() {
-		Contact contact=new Contact("sanjib","HCL","HCL");
+		Contact contact=new Contact("sanjib","DreamCoder","DreamCoder");
 		ApiInfo apiInfo=new ApiInfo("SpringBoot and Microservices",
-				"For HclUseCases",
+				"For SB&MService UseCases",
 				"2.x", 
-				"hcl.com",
+				"DreamCoder.com",
 				contact,
 				"Appache license",
 				"Appache.org"	);
